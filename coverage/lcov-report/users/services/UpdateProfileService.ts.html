@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for users/services/UpdateUserAvatarService.ts</title>
+    <title>Code coverage report for users/services/UpdateProfileService.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">users/services</a> UpdateUserAvatarService.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">users/services</a> UpdateProfileService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -157,56 +157,56 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import fs from 'fs';</span></span></span>
-<span class="cstat-no" title="statement not covered" >import path from 'path';</span>
-<span class="cstat-no" title="statement not covered" >import { injectable, inject } from 'tsyringe';</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { injectable, inject } from 'tsyringe';</span></span></span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >import User from '@modules/users/infra/typeorm/entities/User';</span>
 <span class="cstat-no" title="statement not covered" >import IUsersRepository from '../repositories/IUsersRepository';</span>
-<span class="cstat-no" title="statement not covered" >import IStorageProvider from '@shared/container/providers/StorageProviders/models/IStorageProvider';</span>
+<span class="cstat-no" title="statement not covered" >import IHashProvider from '../providers/HashProvider/models/IHashProvider';</span>
 <span class="cstat-no" title="statement not covered" >import AppError from '@shared/errors/AppError';</span>
-<span class="cstat-no" title="statement not covered" >import uploadConfig from '@config/upload';</span>
+<span class="cstat-no" title="statement not covered" >import User from '@modules/users/infra/typeorm/entities/User';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface IRequest {</span>
 <span class="cstat-no" title="statement not covered" >  user_id: string;</span>
-<span class="cstat-no" title="statement not covered" >  avatarFileName: string;</span>
+<span class="cstat-no" title="statement not covered" >  name: string;</span>
+<span class="cstat-no" title="statement not covered" >  email: string;</span>
+<span class="cstat-no" title="statement not covered" >  password?: string;</span>
+<span class="cstat-no" title="statement not covered" >  old_password: string;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >@injectable()</span>
-<span class="cstat-no" title="statement not covered" >class UpdateUserAvatarService {</span>
+<span class="cstat-no" title="statement not covered" >class UpdateProfile {</span>
 <span class="cstat-no" title="statement not covered" >  constructor(</span>
 <span class="cstat-no" title="statement not covered" >    @inject('UserRepository')</span>
 <span class="cstat-no" title="statement not covered" >    private userRepository: IUsersRepository,</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    @inject('StorageProvider')</span>
-<span class="cstat-no" title="statement not covered" >    private storageProvider: IStorageProvider,</span>
+<span class="cstat-no" title="statement not covered" >    private hashProvider: IHashProvider,</span>
 <span class="cstat-no" title="statement not covered" >  ) {}</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  public async execute({</span>
 <span class="cstat-no" title="statement not covered" >    user_id,</span>
-<span class="cstat-no" title="statement not covered" >    avatarFileName,</span>
+<span class="cstat-no" title="statement not covered" >    name,</span>
+<span class="cstat-no" title="statement not covered" >    email,</span>
 <span class="cstat-no" title="statement not covered" >  }: IRequest): Promise&lt;User | undefined&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const user = await this.userRepository.findById(user_id);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new AppError('Only authenticated user can change avatar', 401);</span>
+<span class="cstat-no" title="statement not covered" >      throw new AppError('User not found!');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (user.avatar) {</span>
-<span class="cstat-no" title="statement not covered" >      await this.storageProvider.deleteFile(user.avatar);</span>
+<span class="cstat-no" title="statement not covered" >    const userWithUpdatedEmail = await this.userRepository.findByEmail(email);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    if (userWithUpdatedEmail &amp;&amp; userWithUpdatedEmail.id === user_id) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new AppError('E-mail alreayd in use!');</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const fileName = await this.storageProvider.saveFile(avatarFileName);</span>
+<span class="cstat-no" title="statement not covered" >    user.name = name;</span>
+<span class="cstat-no" title="statement not covered" >    user.email = email;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    user.avatar = fileName;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    await this.userRepository.save(user);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return user;</span>
+<span class="cstat-no" title="statement not covered" >    return this.userRepository.save(user);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default UpdateUserAvatarService;</span>
+<span class="cstat-no" title="statement not covered" >export default UpdateProfile;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

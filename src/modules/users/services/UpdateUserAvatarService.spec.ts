@@ -5,23 +5,35 @@ import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 import AppError from '@shared/errors/AppError';
 
+
+let fakeUserRepository:FakeUsersRepository;
+let fakeHashProvider:FakeHashProvider;
+let fakeStorageProvider:FakeStorageProvider
+let updateUserAvatar:UpdateUserAvatarService;
+let authenticateUser:AuthenticateUserService;
+
 describe('UpdateUserAvatar', () => {
 
+  beforeEach(()=>{
 
-  it('Should be able to update the avatar!', async () => {
-    const fakeUserRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const fakeStorageProvider = new FakeStorageProvider();
+     fakeUserRepository = new FakeUsersRepository();
+     fakeHashProvider = new FakeHashProvider();
+     fakeStorageProvider = new FakeStorageProvider();
 
-    const updateUserAvatar = new UpdateUserAvatarService(
+     updateUserAvatar = new UpdateUserAvatarService(
       fakeUserRepository,
       fakeStorageProvider
     );
-    const authenticateUser = new AuthenticateUserService(
+     authenticateUser = new AuthenticateUserService(
       fakeUserRepository,
       fakeHashProvider,
     );
 
+     
+  })
+
+  it('Should be able to update the avatar!', async () => {
+   
     const user = await fakeUserRepository.create({
       name:'Jean carlos',
       email:'jeandub1@hotmail.com',
