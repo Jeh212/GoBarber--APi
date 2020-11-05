@@ -29,7 +29,7 @@ describe('CreateUserService', () => {
       email: 'jeandub1@hotmail.com',
       password: '123456',
     });
-    console.log(user);
+  
     expect(user).toHaveProperty('id');
   });
 
