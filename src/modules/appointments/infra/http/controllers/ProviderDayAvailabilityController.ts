@@ -6,7 +6,7 @@ import ProviderDayAvailability from '@modules/appointments/services/ListProvider
 import { da } from 'date-fns/locale';
 
 export default class ProviderDayAvailabilityController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async index(request: Request, response: Response): Promise<Response> {
 		const {provider_id} =  request.params;
 		const { month, year,day } = request.body;
 

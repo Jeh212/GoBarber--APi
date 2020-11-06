@@ -5,7 +5,7 @@ import { parseISO } from 'date-fns';
 import ProviderMonthAvailability from '@modules/appointments/services/LIstProviderMonthAvailabilityService';
 
 export default class ProviderMonthAvailabilityController {
-	public async create(request: Request, response: Response): Promise<Response> {
+	public async index(request: Request, response: Response): Promise<Response> {
 		const {provider_id} = request.params;
 		const {  month, year } = request.body;
 

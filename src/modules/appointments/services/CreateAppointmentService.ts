@@ -4,6 +4,7 @@ import { injectable, inject } from 'tsyringe';
 
 import { startOfHour, isBefore, getHours } from 'date-fns';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository'
 import AppError from '@shared/errors/AppError';
 
 interface RequestDTO {
@@ -14,7 +15,14 @@ interface RequestDTO {
 
 @injectable()
 class CreateAppointmentService {
-	constructor(@inject('AppointmentRepository') private appointmetsRepository: IAppointmentsRepository) {}
+	constructor(
+		@inject('AppointmentRepository')
+		private appointmetsRepository: IAppointmentsRepository,
+
+		@inject('NotificationsRepository')
+		private notificationsRepository: INotificationsRepository,		
+		) {}
+
 
 	public async execute({ date, user_id, provider_id }: RequestDTO): Promise<Appointment> {
 		const appointmentDate = startOfHour(date);
