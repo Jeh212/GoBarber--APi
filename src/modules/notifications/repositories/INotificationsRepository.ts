@@ -4,7 +4,7 @@ import Notification from '../infra/typeorm/schemas/Notification'
 export default interface INotificationsRepository{
 
 
-  create({content,recepient_id}:ICreateNotificationDTO):Promise<Notification>;
+  create({content,recipient_id}:ICreateNotificationDTO):Promise<Notification>;
 
 
 

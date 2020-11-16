@@ -17,7 +17,7 @@ import NotificationsRepository from '@modules/notifications/infra/typeorm/reposi
 
 
 container.registerSingleton<IAppointmentRepository>(
-  'AppointmentRepository',
+  'AppointmentsRepository',
   AppointmentRepository,
 );
 

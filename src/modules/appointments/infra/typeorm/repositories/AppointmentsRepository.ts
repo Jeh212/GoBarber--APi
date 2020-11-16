@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { getRepository, Repository, Raw } from 'typeorm';
+import { getRepository, Repository, Raw, getCustomRepository } from 'typeorm';
 
 import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
@@ -15,7 +15,7 @@ class AppointmentsRepository implements IAppointmentRepository {
 		this.ormRepository = getRepository(Appointment);
 	}
 
-	public async findByDate(date: Date): Promise<Appointment | undefined> {
+	public async findByDate(date:Date,provider_id:string): Promise<Appointment | undefined> {
 		const findAppointment = await this.ormRepository.findOne({
 			where: { date }
 		});
@@ -47,6 +47,7 @@ class AppointmentsRepository implements IAppointmentRepository {
 		month,
 		year
 	}: IFindAllInDayProviderDTO): Promise<Appointment[]> {
+
 		const parsedDay = String(day).padStart(2, '0');
 		const parsedMonth = String(month).padStart(2, '0');
 
@@ -61,19 +62,19 @@ class AppointmentsRepository implements IAppointmentRepository {
 	}
 
 
-	
-
-
-
 	public async create({ provider_id, user_id,date }: ICreateAppointmentDTO): Promise<Appointment> {
+
 		const appointment = this.ormRepository.create({
 			provider_id,
 			user_id,
 			date
 		});
 
+		console.log(appointment)
+
 		await this.ormRepository.save(appointment);
 
+		
 		return appointment;
 	}
 }
