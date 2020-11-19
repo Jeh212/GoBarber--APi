@@ -1,4 +1,3 @@
-
 import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/model/ICacheProvider';
@@ -29,7 +28,7 @@ class ListProviderAppointmentsService {
     month,
     day,
   }: IRequest): Promise<Appointment[]> {
-    const cacheKey = `provider-appointments:${provider_id}-${year}-${month}-${day}`;
+    const cacheKey = `provider-appointments:${provider_id}:${year}-${month}-${day}`;
 
     let appointments = await this.cacheProvider.recover<Appointment[]>(
       cacheKey,
