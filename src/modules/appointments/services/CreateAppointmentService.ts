@@ -7,6 +7,7 @@ import AppError from '@shared/errors/AppError';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/model/ICacheProvider';
 
 interface IRequest {
   provider_id: string;
@@ -23,8 +24,8 @@ class CreateAppointmentService {
     @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
 
-    // @inject('CacheProvider')
-    // private cacheProvider: ICacheProvider,
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
     
   ) {}
 
@@ -69,6 +70,7 @@ class CreateAppointmentService {
       user_id,
       date: date,
     });
+    console.log(user_id)
 
     const dateFormatted = format(date, "dd/MM/yyyy 'às' HH:mm'h'");
 
@@ -77,12 +79,12 @@ class CreateAppointmentService {
       content: `Novo agendamento para dia ${dateFormatted}`,
     });
 
-    // await this.cacheProvider.invalidate(
-    //   `provider-appointments:${provider_id}:${format(
-    //     date,
-    //     'yyyy-M-d',
-    //   )}`,
-    // );
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        date,
+        'yyyy-M-d',
+      )}`,
+    );
 
     return appointment;
   }

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/39</span>
             </div>
         
             
@@ -133,12 +133,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Request, Response, NextFunction } from 'express';</span></span></span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Request, Response, NextFunction } from 'express';</span></span></span>
 <span class="cstat-no" title="statement not covered" >import { verify } from 'jsonwebtoken';</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import authConfig from '@config/auth';</span>
 <span class="cstat-no" title="statement not covered" >import AppError from '@shared/errors/AppError';</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >interface TokenPayload {</span>
+<span class="cstat-no" title="statement not covered" >interface ITokenPayload {</span>
 <span class="cstat-no" title="statement not covered" >  iat: number;</span>
 <span class="cstat-no" title="statement not covered" >  exp: number;</span>
 <span class="cstat-no" title="statement not covered" >  sub: string;</span>
@@ -152,33 +153,32 @@
 <span class="cstat-no" title="statement not covered" >  const authHeader = request.headers.authorization;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  if (!authHeader) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new AppError('JWT token is missing;', 401);</span>
+<span class="cstat-no" title="statement not covered" >    throw new AppError('JWT token is missing', 401);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  const [, token] = authHeader.split(' ');</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
 <span class="cstat-no" title="statement not covered" >    const decoded = verify(token, authConfig.jwt.secret);</span>
-<span class="cstat-no" title="statement not covered" >    const { sub } = decoded as TokenPayload;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const { sub } = decoded as ITokenPayload;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    request.user = {</span>
 <span class="cstat-no" title="statement not covered" >      id: sub,</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    console.log(decoded);</span>
 <span class="cstat-no" title="statement not covered" >    return next();</span>
-<span class="cstat-no" title="statement not covered" >  } catch (err) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new AppError('Invalid JWT Token', 401);</span>
+<span class="cstat-no" title="statement not covered" >  } catch {</span>
+<span class="cstat-no" title="statement not covered" >    throw new AppError('Invalid JWT token', 401);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;</pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 06 2020 09:00:10 GMT-0400 (GMT-04:00)
+                at Wed Nov 18 2020 09:49:20 GMT-0400 (GMT-04:00)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -80,7 +80,8 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -103,37 +104,39 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Request, Response } from 'express';</span></span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Request, Response } from 'express';</span></span></span>
 <span class="cstat-no" title="statement not covered" >import { container } from 'tsyringe';</span>
-<span class="cstat-no" title="statement not covered" >import { parseISO } from 'date-fns';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import ListProviderAppointmentsService from '@modules/appointments/services/ListProviderAppointmentService';</span>
+<span class="cstat-no" title="statement not covered" >import { classToClass } from 'class-transformer';</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default class ProviderAppointmentController {</span>
-<span class="cstat-no" title="statement not covered" >	public async index(request: Request, response: Response): Promise&lt;Response&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		const { provider_id } = request.params;</span>
-<span class="cstat-no" title="statement not covered" >		const { day, month, year } = request.body;</span>
+<span class="cstat-no" title="statement not covered" >export default class ProviderAppointmentsController {</span>
+<span class="cstat-no" title="statement not covered" >  public async index(request: Request, response: Response): Promise&lt;Response&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const provider_id = request.user.id;</span>
+<span class="cstat-no" title="statement not covered" >    const { day, month, year } = request.query;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		const listProviderAppointmentsService = container.resolve(ListProviderAppointmentsService);</span>
+<span class="cstat-no" title="statement not covered" >    const listProviderAppointments = container.resolve(</span>
+<span class="cstat-no" title="statement not covered" >      ListProviderAppointmentsService,</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		const appointment = await listProviderAppointmentsService.execute({</span>
-<span class="cstat-no" title="statement not covered" >			provider_id,</span>
-<span class="cstat-no" title="statement not covered" >			day,</span>
-<span class="cstat-no" title="statement not covered" >			month,</span>
-<span class="cstat-no" title="statement not covered" >			year</span>
-<span class="cstat-no" title="statement not covered" >		});</span>
+<span class="cstat-no" title="statement not covered" >    const appointments = await listProviderAppointments.execute({</span>
+<span class="cstat-no" title="statement not covered" >      provider_id,</span>
+<span class="cstat-no" title="statement not covered" >      day: Number(day),</span>
+<span class="cstat-no" title="statement not covered" >      month: Number(month),</span>
+<span class="cstat-no" title="statement not covered" >      year: Number(year),</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >		return response.json(appointment);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;</pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" >    return response.json(classToClass(appointments));</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 06 2020 09:00:10 GMT-0400 (GMT-04:00)
+                at Wed Nov 18 2020 09:49:20 GMT-0400 (GMT-04:00)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

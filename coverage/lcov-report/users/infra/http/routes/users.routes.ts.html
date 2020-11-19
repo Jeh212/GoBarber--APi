@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -79,7 +79,19 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -102,6 +114,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { Router } from 'express';</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { celebrate, Joi, Segments } from 'celebrate';</span>
 <span class="cstat-no" title="statement not covered" >import multer from 'multer';</span>
 <span class="cstat-no" title="statement not covered" >import uploadConfig from '@config/upload';</span>
 <span class="cstat-no" title="statement not covered" >import UsersController from '../controllers/UsersController';</span>
@@ -111,16 +124,21 @@
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >const usersController = new UsersController();</span>
 <span class="cstat-no" title="statement not covered" >const updateUserAvatar = new UserAvatarController();</span>
-<span class="cstat-no" title="statement not covered" >const upload = multer(uploadConfig);</span>
+<span class="cstat-no" title="statement not covered" >const upload = multer(uploadConfig.multer);</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >usersRouter.post('/', usersController.create);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >usersRouter.patch(</span>
-<span class="cstat-no" title="statement not covered" >  '/avatar',</span>
-<span class="cstat-no" title="statement not covered" >  ensureAuthenticated,</span>
-<span class="cstat-no" title="statement not covered" >  upload.single('avatar'),</span>
-<span class="cstat-no" title="statement not covered" >  updateUserAvatar.update,</span>
+<span class="cstat-no" title="statement not covered" >usersRouter.post(</span>
+<span class="cstat-no" title="statement not covered" >	'/',</span>
+<span class="cstat-no" title="statement not covered" >	celebrate({</span>
+<span class="cstat-no" title="statement not covered" >		[Segments.BODY]: {</span>
+<span class="cstat-no" title="statement not covered" >			name: Joi.string().required(),</span>
+<span class="cstat-no" title="statement not covered" >			email: Joi.string().email().required(),</span>
+<span class="cstat-no" title="statement not covered" >			password: Joi.string().required()</span>
+<span class="cstat-no" title="statement not covered" >		}</span>
+<span class="cstat-no" title="statement not covered" >	}),</span>
+<span class="cstat-no" title="statement not covered" >	usersController.create</span>
 <span class="cstat-no" title="statement not covered" >);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), updateUserAvatar.update);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export default usersRouter;</span>
 &nbsp;</pre></td></tr></table></pre>
@@ -130,7 +148,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 06 2020 09:00:10 GMT-0400 (GMT-04:00)
+                at Wed Nov 18 2020 09:49:20 GMT-0400 (GMT-04:00)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

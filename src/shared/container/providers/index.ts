@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 import uploadConfig from '@config/upload'
 
+
 import IStorageProvider from '../providers/StorageProviders/models/IStorageProvider';
 import DiskStorageProvider from '../providers/StorageProviders/implementations/DiskStorageProvider';
 
@@ -12,7 +13,7 @@ import HandleBarsMailTemplateProivider from './MailTemplateProvider/implementati
 
 
 import S3StorageProvider from '../providers/StorageProviders/implementations/S3StorageProvider';
-
+import './CacheProvider'
 
 const providers  ={
 

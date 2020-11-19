@@ -1,4 +1,5 @@
 import "reflect-metadata"
+import raterLimiter from './middlewares/rateLimiter'
 import 'dotenv/config';
 import express, { Response, NextFunction, Request } from 'express';
 import {errors} from 'celebrate'
@@ -14,8 +15,8 @@ import AppError from '@shared/errors/AppError';
 
 const app = express();
 
+app.use(raterLimiter);
 app.use(cors());
-
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);

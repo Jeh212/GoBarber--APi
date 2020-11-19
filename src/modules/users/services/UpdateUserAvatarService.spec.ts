@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import AuthenticateUserService from './AuthenticateUserService';
 import FakeStorageProvider from '@shared/container/providers/StorageProviders/fakes/FakeStorageProvider'
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';

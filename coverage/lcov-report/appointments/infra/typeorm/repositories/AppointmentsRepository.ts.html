@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/81</span>
+                <span class='fraction'>0/82</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/81</span>
+                <span class='fraction'>0/82</span>
             </div>
         
             
@@ -138,7 +138,9 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -220,7 +222,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import 'reflect-metadata';</span></span></span>
-<span class="cstat-no" title="statement not covered" >import { getRepository, Repository, Raw } from 'typeorm';</span>
+<span class="cstat-no" title="statement not covered" >import { getRepository, Repository, Raw, getCustomRepository } from 'typeorm';</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository';</span>
 <span class="cstat-no" title="statement not covered" >import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';</span>
@@ -236,7 +238,7 @@
 <span class="cstat-no" title="statement not covered" >		this.ormRepository = getRepository(Appointment);</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	public async findByDate(date: Date): Promise&lt;Appointment | undefined&gt; {</span>
+<span class="cstat-no" title="statement not covered" >	public async findByDate(date:Date,provider_id:string): Promise&lt;Appointment | undefined&gt; {</span>
 <span class="cstat-no" title="statement not covered" >		const findAppointment = await this.ormRepository.findOne({</span>
 <span class="cstat-no" title="statement not covered" >			where: { date }</span>
 <span class="cstat-no" title="statement not covered" >		});</span>
@@ -268,6 +270,7 @@
 <span class="cstat-no" title="statement not covered" >		month,</span>
 <span class="cstat-no" title="statement not covered" >		year</span>
 <span class="cstat-no" title="statement not covered" >	}: IFindAllInDayProviderDTO): Promise&lt;Appointment[]&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >		const parsedDay = String(day).padStart(2, '0');</span>
 <span class="cstat-no" title="statement not covered" >		const parsedMonth = String(month).padStart(2, '0');</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -282,19 +285,19 @@
 <span class="cstat-no" title="statement not covered" >	}</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >	public async create({ provider_id, user_id,date }: ICreateAppointmentDTO): Promise&lt;Appointment&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >		const appointment = this.ormRepository.create({</span>
 <span class="cstat-no" title="statement not covered" >			provider_id,</span>
 <span class="cstat-no" title="statement not covered" >			user_id,</span>
 <span class="cstat-no" title="statement not covered" >			date</span>
 <span class="cstat-no" title="statement not covered" >		});</span>
 <span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >		console.log(appointment)</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >		await this.ormRepository.save(appointment);</span>
 <span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >		</span>
 <span class="cstat-no" title="statement not covered" >		return appointment;</span>
 <span class="cstat-no" title="statement not covered" >	}</span>
 <span class="cstat-no" title="statement not covered" >}</span>
@@ -307,7 +310,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 06 2020 09:00:10 GMT-0400 (GMT-04:00)
+                at Wed Nov 18 2020 09:49:20 GMT-0400 (GMT-04:00)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

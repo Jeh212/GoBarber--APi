@@ -10,7 +10,6 @@ export default class AppointmentController {
 
     const createAppointment = container.resolve(CreateAppointmentService);
 
-    console.log(createAppointment)
     
     const appointment = await createAppointment.execute({
       date,
