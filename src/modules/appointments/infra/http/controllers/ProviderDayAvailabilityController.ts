@@ -10,7 +10,7 @@ export default class ProviderDayAvailabilityController {
 		const {provider_id} =  request.params;
 		const { month, year,day } = request.query;
 
-		console.log(provider_id,month,year,day)
+
 		const listProviderDayAvailability = container.resolve(ProviderDayAvailability);
 
 		const appointment = await listProviderDayAvailability.execute({
