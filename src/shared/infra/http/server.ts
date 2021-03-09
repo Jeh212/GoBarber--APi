@@ -15,10 +15,11 @@ import AppError from '@shared/errors/AppError';
 
 const app = express();
 
-app.use(raterLimiter);
+
 app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
+app.use(raterLimiter);
 app.use(routes);
 
 app.use(errors());
@@ -39,6 +40,8 @@ app.use(
     });
   },
 );
+
+
 app.listen(3333, () => {
   console.log('Servidor rodando');
 });
